@@ -1,36 +1,17 @@
-const tasks = [
-    {
-        id: 1,
-        text: "Work",
-        day: "Monday",
-        reminder: false
-    },
-    {
-        id: 2,
-        text: "Skate",
-        day: "Tuesday",
-        reminder: false
-    },
-    {
-        id: 3,
-        text: "Code",
-        day: "Wednesday",
-        reminder: true
-    },
-    {
-        id: 4,
-        text: "Snuggle",
-        day: "Thursday",
-        reminder: true
-    }
-]
-
-const Tasks = () => {
+import Task from './Task'
+const Tasks = (props) => { 
+    
     return (
-        <div>
-            {tasks.map(x => <h3 key={x.id}>{x.text}</h3>)}
-        </div>
-    )
+        <>
+            {props.tasks.map(task => <Task key={task.id} task={task} onDelete={props.onDelete}/>)}
+        </>
+    ) // onDelete prop is demonstrated in both different uses on Task and Tasks (with props attribute and with {} attribute)
+    // as it gets passed up through the components to state, where it gets used.
 }
+
+/* 
+'task={' is the prop created in the Task component, but the {task} passed in is
+still just a temporary place holder for the task that gets passed in in the future.
+*/
 
 export default Tasks
