@@ -3,7 +3,7 @@ const Tasks = (props) => {
     
     return (
         <>
-            {props.tasks.map(task => <Task key={task.id} task={task} onDelete={props.onDelete}/>)}
+            {props.tasks.map(task => <Task key={task.id} task={task} onDelete={props.onDelete} onToggle={props.onToggle}/>)}
         </>
     ) // onDelete prop is demonstrated in both different uses on Task and Tasks (with props attribute and with {} attribute)
     // as it gets passed up through the components to state, where it gets used.

@@ -1,6 +1,7 @@
 // import React from 'react'; this line is only needed if the component is a class component
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 import { useState } from 'react';
 
 
@@ -34,6 +35,21 @@ function App() {
     }
 ])
 
+// Add task (FIX ME, make sure I don't get double IDs generated)
+const addTask = (task) => {
+  let id = Math.floor(Math.random() * 100) + 1
+  if (tasks.filter(task => task.id === id).length > 0) {
+      console.log('Double uniquie ID was generated, try again.')
+      return
+  } else {
+    const newTask = { id, ...task }
+    setTasks([...tasks, newTask])
+    console.log(id)
+    }
+  }
+
+  
+
 // Delete task
 const deleteTask = (id) => {
   setTasks(
@@ -41,10 +57,17 @@ const deleteTask = (id) => {
   )
 }
 
+// Toggle reminder
+ const toggleReminder = (id) => {
+   setTasks(tasks.map(task => task.id === id ? {...task, reminder: !task.reminder} : task))
+ }// we map through the tasks until we find the one that is selected, use the spread operator to pin down the reminder property
+ // and set it opposite to whatever it was before.
+
   return (
     <div className="container">
      <Header />
-     {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask}/> : 'No tasks.'}
+     <AddTask onAdd={addTask}/>
+     {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show.'}
     </div> // ternary operator for showing a message when there aren't any tasks.
   );
 }
