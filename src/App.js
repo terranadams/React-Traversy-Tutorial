@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 
 function App() {
-
+  const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([ // State is immutible, using tasks.push() would not work.
     // Instead you would use setTask([...tasks, {another object}]) to recreate state using the spread operator.
     {
@@ -65,8 +65,8 @@ const deleteTask = (id) => {
 
   return (
     <div className="container">
-     <Header />
-     <AddTask onAdd={addTask}/>
+     <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+     {showAddTask && <AddTask onAdd={addTask} />}
      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show.'}
     </div> // ternary operator for showing a message when there aren't any tasks.
   );

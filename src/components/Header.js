@@ -1,15 +1,16 @@
 // using ES7 React snippets extention, I just type "rafce" on a line and then 'enter' to create my function component.
 import Button from "./Button"
 
-const Header = ({ title }) => {
+const Header = ({ title, onAdd, showAdd }) => {
 
-    const anEvent = () => {
-        console.log('Clickety click')
-    }
+    
     return (
         <header className='header'>
             <h1>{title}</h1>
-            <Button onClick={anEvent} color='green' text='Add' />
+            <Button 
+            onClick={onAdd} 
+            color={showAdd ? 'red' : 'green'} 
+            text={showAdd ? 'Close' : 'Add'} /> 
          </header>
     )
 }
