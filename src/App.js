@@ -2,6 +2,9 @@
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./About";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useState } from 'react';
 
 
@@ -64,11 +67,19 @@ const deleteTask = (id) => {
  // and set it opposite to whatever it was before.
 
   return (
+    <Router>
     <div className="container">
      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-     {showAddTask && <AddTask onAdd={addTask} />}
-     {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show.'}
-    </div> // ternary operator for showing a message when there aren't any tasks.
+     <Route path='/' exact render={(props) => (
+       <>
+       {showAddTask && <AddTask onAdd={addTask} />}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No tasks to show.'}
+       </>
+     )} />
+     <Route path='/about' component={About} />
+    <Footer />
+    </div> 
+    </Router>
   );
 }
 
